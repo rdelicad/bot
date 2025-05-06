@@ -16,9 +16,9 @@ def abrir_posicion(symbol, qty, side, tipo_orden="Market", stop_loss=None, take_
         "time_in_force": "GoodTillCancel"
     }
     if stop_loss is not None:
-        params["stop_loss"] = stop_loss
+        params["stop_loss"] = str(stop_loss)
     if take_profit is not None:
-        params["take_profit"] = take_profit
+        params["take_profit"] = str(take_profit)
     orden = session.place_order(**params)
     return orden
 

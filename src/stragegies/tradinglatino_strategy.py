@@ -1,6 +1,8 @@
 def detectar_senal_trading(precio, ema_10, ema_55, ema_200, rsi, macd_line, signal_line, prev_macd_line, prev_signal_line):
     # Largo
-    if precio > ema_200 and ema_10 > ema_55 and 50 < rsi < 70:
+    # quitamos precio > ema_200 para temporalidad de 1h
+    # y 4h, ya que el precio puede estar por debajo de la ema200
+    if ema_10 > ema_55 and 50 < rsi < 70:
         # Cruce MACD al alza
         if prev_macd_line < prev_signal_line and macd_line > signal_line:
             # Mostrar valores de EMA y RSI
@@ -11,7 +13,9 @@ def detectar_senal_trading(precio, ema_10, ema_55, ema_200, rsi, macd_line, sign
             print(f"Señal de COMPRA detectada. Precio: {precio}")
             return "long"
     # Corto
-    if precio < ema_200 and ema_10 < ema_55 and 30 < rsi < 50:
+    # quitamos precio < ema_200 para temporalidad de 1h
+    # y 4h, ya que el precio puede estar por encima de la ema200
+    if ema_10 < ema_55 and 30 < rsi < 50:
         # Cruce MACD a la baja
         if prev_macd_line > prev_signal_line and macd_line < signal_line:
             # Mostrar valores de EMA y RSI
