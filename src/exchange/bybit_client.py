@@ -44,7 +44,7 @@ class BybitClient:
             print(f"❌ Error al obtener el price: {e}")
             return None
     
-    def get_candles(self, symbol, interval="1", limit=100, category="linear"):
+    def get_candles(self, symbol, interval="1", limit=100, category="linear", return_timestamps=False):
             """"
             Devuelve tres listas: cierres, altos y bajos de las velas.
             """
@@ -62,6 +62,10 @@ class BybitClient:
                 altos = [float(c[2]) for c in lista]
                 bajos = [float(c[3]) for c in lista]
                 #print(f"mostrar_cierres: {cierres}")
+                if return_timestamps:
+                    # Si se requiere, devuelve también los timestamps
+                    timestamps = [int(c[0]) for c in lista]
+                    return cierres, altos, bajos, timestamps
                 return cierres, altos, bajos
             except Exception as e:
                 print(f"❌ Error al obtener las velas: {e}")
